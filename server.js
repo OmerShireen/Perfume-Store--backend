@@ -14,21 +14,31 @@ app.use(express.json());
 
 console.log(process.env);
 
-const db = mysql.createConnection({
-    host: process.env.host ,
-    user: process.env.user ,
-    password:  process.env.password,
-    database:  process.env.database,
-    port: process.env.dbPort,
-  });
+const db = mysql.createPool({
+     host: process.env.host ,
+     user: process.env.user ,
+     password:  process.env.password,
+     database:  process.env.database,
+     port: process.env.dbPort,
+     waitForConnections: true,
+     connectionLimit: 10,
+     queueLimit: 0
+});
+// const db = mysql.createConnection({
+//     host: process.env.host ,
+//     user: process.env.user ,
+//     password:  process.env.password,
+//     database:  process.env.database,
+//     port: process.env.dbPort,
+//   });
 
-  db.connect((err) => {
-    if (err) {
-      console.error('Error connecting to the database:', err);
-      return;
-    }
-    console.log('Connected to the database.');
-  });
+  // db.connect((err) => {
+  //   if (err) {
+  //     console.error('Error connecting to the database:', err);
+  //     return;
+  //   }
+  //   console.log('Connected to the database.');
+  // });
 
 // Register Route
 app.post('/register', async (req, res) => {
