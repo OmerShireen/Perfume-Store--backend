@@ -19,7 +19,7 @@ const db = mysql.createConnection({
     user: process.env.user ,
     password:  process.env.password,
     database:  process.env.database,
-    dbPort: process.env.dbPort,
+    port: process.env.dbPort,
   });
 
   db.connect((err) => {
@@ -44,7 +44,7 @@ app.post('/register', async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
-  }
+  } 
 });
 
 // Login Route
